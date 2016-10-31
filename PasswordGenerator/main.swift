@@ -10,7 +10,7 @@ import Foundation
 import AppKit
 
 let openSslPath = "/usr/bin/openssl"
-let passwordLength = "10"
+let passwordLength = "13"
 
 func shell(launchPath: String, arguments: [String] = []) -> (String? , Int32) {
     let task = Process()
@@ -37,8 +37,8 @@ var commandOutput = shell(launchPath:openSslPath, arguments:["rand", "-base64", 
 var generatedPassword = commandOutput.0!
 
 if (commandOutput.1 == 0) {
-    // drop new line character at the end of the result
-    let resultPassword = String(generatedPassword.characters.dropLast(2))
+    // drop = and new line character at the end of the result
+    let resultPassword = String(generatedPassword.characters.dropLast(3))
     copyToPasteboard(text:resultPassword)
     print(resultPassword)
 } else {
